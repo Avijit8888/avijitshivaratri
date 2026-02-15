@@ -7,66 +7,117 @@
 html, body{
   height:100%;
   background:black;
-  font-family:'Cinzel', serif;
   overflow:hidden;
+  font-family:'Cinzel', serif;
   color:#e6d3a3;
 }
 
+/* SLIDER */
 .slider{
   display:flex;
-  width:700vw; /* 7 chapters */
+  width:300vw;
   height:100vh;
-  transition:transform 1.8s ease-in-out;
+  transition:transform 2s ease-in-out;
 }
 
+/* CHAPTER */
 .chapter{
   width:100vw;
   height:100vh;
   flex-shrink:0;
+  position:relative;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:50px;
+  background-size:cover;
+  background-position:center;
 }
 
+/* Background Images */
+.singularity{
+  background:url("assets/singularity.jpg") center/cover no-repeat;
+}
+.expansion{
+  background:url("assets/nebula.jpg") center/cover no-repeat;
+}
+.union{
+  background:url("assets/galaxy.jpg") center/cover no-repeat;
+}
+
+/* Dark overlay */
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  top:0;
+  left:0;
+  z-index:2;
+}
+
+/* Shiva-Shakti overlay */
+.deity-overlay{
+  position:absolute;
+  width:60%;
+  height:80%;
+  background:url("assets/shiva-shakti.png") center/contain no-repeat;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  opacity:0.25;
+  z-index:3;
+  filter:drop-shadow(0 0 40px gold);
+  animation:glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+  from{opacity:0.2;}
+  to{opacity:0.35;}
+}
+
+/* Content */
 .chapter-inner{
+  position:relative;
+  z-index:4;
   max-width:850px;
 }
 
-h1{
-  font-size:0.9rem;
-  letter-spacing:3px;
-  margin-bottom:10px;
-  opacity:0.7;
-}
-
 h2{
-  font-size:2rem;
-  margin-bottom:20px;
+  font-size:2.2rem;
+  margin-bottom:25px;
 }
 
 .story{
   font-family:'Playfair Display', serif;
   font-size:1.1rem;
-  line-height:1.8;
+  line-height:1.9;
 }
 
 .story span{
   opacity:0;
-  transition:opacity 0.4s ease;
+  transition:opacity 0.5s ease;
 }
 
-/* Background Colors */
-.singularity{ background:#000; }
-.expansion{ background:#111; }
-.shakti{ background:#140c1c; }
-.shiva{ background:#0a1020; }
-.union{ background:#1a0d1d; }
-.love{ background:#1c1010; }
-.eternal{ background:#0f1a1a; }
+/* Star canvas */
+.stars{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:1;
+}
 
-@media(max-width:768px){
-  h2{font-size:1.6rem;}
-  .story{font-size:0.95rem;}
+/* Fade layer */
+.fade-layer{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s ease;
+  z-index:10;
 }
