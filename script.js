@@ -6,7 +6,6 @@ const mantra = document.getElementById("mantra");
 
 let current = 0;
 
-/* AUDIO START (on first interaction) */
 document.addEventListener("click", () => {
   ambient.volume = 0.4;
   mantra.volume = 0.2;
@@ -14,7 +13,6 @@ document.addEventListener("click", () => {
   mantra.play();
 }, { once:true });
 
-/* WORD REVEAL */
 function revealText(section){
   const p = section.querySelector(".story");
   if(p.dataset.revealed) return;
@@ -27,22 +25,17 @@ function revealText(section){
     const span = document.createElement("span");
     span.textContent = word + " ";
     p.appendChild(span);
-
-    setTimeout(()=>{
-      span.style.opacity = 1;
-    }, index * 150);
+    setTimeout(()=>{ span.style.opacity = 1; }, index * 120);
   });
 }
 
-/* SLIDE WITH FADE */
 function goToSlide(index){
   fadeLayer.style.opacity = 1;
-
   setTimeout(()=>{
     slider.style.transform = `translateX(-${index * 100}vw)`;
     revealText(sections[index]);
     fadeLayer.style.opacity = 0;
-  }, 800);
+  }, 700);
 }
 
 goToSlide(0);
@@ -67,7 +60,7 @@ document.querySelectorAll(".stars").forEach(canvas=>{
   window.addEventListener("resize", resize);
 
   const stars = [];
-  const count = window.innerWidth < 768 ? 60 : 120;
+  const count = 100;
 
   for(let i=0;i<count;i++){
     stars.push({
@@ -86,7 +79,6 @@ document.querySelectorAll(".stars").forEach(canvas=>{
       ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
       ctx.fillStyle=`rgba(255,255,255,${star.o})`;
       ctx.fill();
-
       star.y+=star.s;
       if(star.y>canvas.height){
         star.y=0;
