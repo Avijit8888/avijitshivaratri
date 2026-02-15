@@ -8,8 +8,10 @@ html, body{
   height:100%;
   background:#000;
   font-family:'Cinzel', serif;
-  overflow:hidden;
+  overflow-x:auto;
+  overflow-y:hidden;
   color:#e6d3a3;
+  scroll-behavior:smooth;
 }
 
 /* Cinematic bars */
@@ -23,115 +25,95 @@ html, body{
 .cinema-top{top:0;}
 .cinema-bottom{bottom:0;}
 
-/* Scene fade */
-#sceneFade{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:black;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 1.5s ease;
-  z-index:200;
-}
-
-/* Intro */
-#intro{
-  position:fixed;
-  width:100%;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  background:#000;
-  z-index:90;
-  transition:opacity 2s ease;
-}
-#intro h1,#intro p{
-  opacity:0;
-  transition:opacity 3s ease;
-}
-
 /* Horizontal layout */
-#mainContent{
-  width:100vw;
+.main-wrapper{
+  width:100%;
   height:100vh;
-  opacity:0;
-  transition:opacity 2s ease;
+  overflow-x:auto;
+  overflow-y:hidden;
 }
 
 .horizontal-container{
   display:flex;
-  width:300vw;
+  width:400vw;
   height:100vh;
-  transition:transform 2s ease-in-out;
 }
 
 section{
   width:100vw;
   height:100vh;
   position:relative;
+  flex-shrink:0;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
-  overflow:hidden;
-}
-
-/* Background layer */
-.cosmic-bg{
-  position:absolute;
-  width:100%;
-  height:100%;
+  padding:60px 20px;
   background-size:cover;
   background-position:center;
-  z-index:-3;
-  animation:slowZoom 40s linear infinite;
 }
 
-/* Individual chapter backgrounds */
-.singularity .cosmic-bg{
+/* Backgrounds */
+.singularity{
   background:url("singularity.jpg") center/cover no-repeat;
 }
-
-.expansion .cosmic-bg{
+.expansion{
   background:url("nebula.jpg") center/cover no-repeat;
 }
-
-.union .cosmic-bg{
+.union{
+  background:url("galaxy.jpg") center/cover no-repeat;
+}
+.eternal{
   background:url("galaxy.jpg") center/cover no-repeat;
 }
 
-/* Deity overlay */
+/* Overlay */
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  top:0;
+  left:0;
+  z-index:2;
+}
+
+/* Star canvas */
+.stars{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+}
+
+/* Shiva-Shakti */
 .deity-overlay{
   position:absolute;
   width:60%;
   height:80%;
+  background:url("shiva-shakti.png") center/contain no-repeat;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  background:url("shiva-shakti.png") center/contain no-repeat;
-  opacity:0.12;
+  opacity:0.15;
+  z-index:3;
   filter:drop-shadow(0 0 30px rgba(255,215,0,0.3));
-  z-index:-2;
 }
-
 .deity-overlay.strong{
-  opacity:0.25;
+  opacity:0.3;
   filter:drop-shadow(0 0 60px rgba(255,215,0,0.6));
 }
 
-/* Content */
 .content{
   max-width:700px;
-  padding:40px;
+  position:relative;
+  z-index:4;
 }
 
 h2{
-  font-size:2.5rem;
+  font-size:2.4rem;
   margin-bottom:20px;
 }
 
@@ -139,22 +121,15 @@ h2{
   font-family:'Playfair Display', serif;
   font-size:1.1rem;
   line-height:1.8;
-  opacity:0;
 }
 
-/* Word reveal */
 .story span{
   opacity:0;
-  transition:opacity 0.5s ease;
-}
-
-@keyframes slowZoom{
-  from{transform:scale(1);}
-  to{transform:scale(1.1);}
+  transition:opacity 0.4s ease;
 }
 
 /* Mobile */
 @media(max-width:768px){
-  h2{font-size:1.8rem;}
+  h2{font-size:1.7rem;}
   .story{font-size:0.95rem;}
 }
