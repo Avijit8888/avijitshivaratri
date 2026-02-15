@@ -9,10 +9,7 @@ html, body{
   background:#000;
   font-family:'Cinzel', serif;
   color:#e6d3a3;
-
-  overflow-x:auto;   /* allow horizontal */
-  overflow-y:hidden; /* disable vertical */
-  scroll-behavior:smooth;
+  overflow:hidden; /* no manual scroll */
 }
 
 /* Cinematic Bars */
@@ -26,17 +23,19 @@ html, body{
 .cinema-top{top:0;}
 .cinema-bottom{bottom:0;}
 
-/* REMOVE wrapper scrolling */
+/* Wrapper */
 .main-wrapper{
-  width:400vw;   /* match total sections */
+  width:100vw;
   height:100vh;
+  overflow:hidden;
 }
 
-/* Horizontal container */
+/* Horizontal Layout */
 .horizontal-container{
   display:flex;
-  width:400vw;
+  width:700vw; /* 7 sections */
   height:100vh;
+  transition:transform 1.8s ease-in-out;
 }
 
 section{
@@ -52,7 +51,69 @@ section{
   background:#000;
 }
 
-/* Stars */
+/* Overlay */
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.65);
+  top:0;
+  left:0;
+  z-index:2;
+}
+
+/* Backgrounds */
+.singularity{ background:url("singularity.jpg") center/cover no-repeat; }
+.expansion{ background:url("nebula.jpg") center/cover no-repeat; }
+.shakti{ background:url("nebula.jpg") center/cover no-repeat; }
+.shiva{ background:url("galaxy.jpg") center/cover no-repeat; }
+.union{ background:url("galaxy.jpg") center/cover no-repeat; }
+.love{ background:url("nebula.jpg") center/cover no-repeat; }
+.eternal{ background:url("galaxy.jpg") center/cover no-repeat; }
+
+/* Shiva Overlay */
+.deity-overlay{
+  position:absolute;
+  width:65%;
+  height:80%;
+  background:url("shiva-shakti.png") center/contain no-repeat;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  opacity:0.18;
+  z-index:3;
+  filter:drop-shadow(0 0 40px rgba(255,215,0,0.4));
+}
+.deity-overlay.strong{
+  opacity:0.35;
+  filter:drop-shadow(0 0 70px rgba(255,215,0,0.7));
+}
+
+/* Content */
+.content{
+  position:relative;
+  z-index:4;
+  max-width:750px;
+}
+
+h2{
+  font-size:2.2rem;
+  margin-bottom:20px;
+}
+
+p{
+  font-family:'Playfair Display', serif;
+  font-size:1.05rem;
+  line-height:1.8;
+}
+
+/* Word reveal */
+p span{
+  opacity:0;
+  transition:opacity 0.4s ease;
+}
+
+/* Star Canvas */
 .stars{
   position:absolute;
   width:100%;
@@ -62,59 +123,8 @@ section{
   z-index:1;
 }
 
-/* Overlay */
-.overlay{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.6);
-  top:0;
-  left:0;
-  z-index:2;
-}
-
-/* Content */
-.content{
-  position:relative;
-  z-index:3;
-  max-width:700px;
-}
-
-h2{
-  font-size:2rem;
-  margin-bottom:20px;
-}
-
-.story{
-  font-family:'Playfair Display', serif;
-  font-size:1rem;
-  line-height:1.7;
-}
-
-.story span{
-  opacity:0;
-  transition:opacity 0.4s ease;
-}
-
-/* Shiva-Shakti overlay */
-.deity-overlay{
-  position:absolute;
-  width:70%;
-  height:80%;
-  background:url("shiva-shakti.png") center/contain no-repeat;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  opacity:0.2;
-  z-index:2;
-}
-
-.deity-overlay.strong{
-  opacity:0.35;
-}
-
 /* Mobile */
 @media(max-width:768px){
   h2{font-size:1.6rem;}
-  .story{font-size:0.9rem;}
+  p{font-size:0.9rem;}
 }
