@@ -1,4 +1,3 @@
-/* ---------- RESET ---------- */
 *{
   margin:0;
   padding:0;
@@ -6,49 +5,25 @@
 }
 
 html, body{
-  width:100%;
   height:100%;
   background:#000;
   font-family:'Cinzel', serif;
   overflow:hidden;
-  overscroll-behavior:none;
-  touch-action:none;
+  color:#e6d3a3;
 }
 
-/* ---------- LETTERBOX ---------- */
+/* Cinematic bars */
 .cinema-top, .cinema-bottom{
   position:fixed;
   width:100%;
-  height:60px;
+  height:50px;
   background:#000;
   z-index:100;
 }
 .cinema-top{top:0;}
 .cinema-bottom{bottom:0;}
 
-/* ---------- BACKGROUND ---------- */
-.parallax{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa");
-  background-size:cover;
-  background-position:center;
-  z-index:-2;
-}
-
-.overlay{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at center, transparent 35%, black 100%);
-  z-index:50;
-  pointer-events:none;
-}
-
-/* ---------- SCENE FADE ---------- */
+/* Scene fade */
 #sceneFade{
   position:fixed;
   top:0;
@@ -58,11 +33,11 @@ html, body{
   background:black;
   opacity:0;
   pointer-events:none;
-  z-index:200;
   transition:opacity 1.5s ease;
+  z-index:200;
 }
 
-/* ---------- INTRO ---------- */
+/* Intro */
 #intro{
   position:fixed;
   width:100%;
@@ -71,33 +46,26 @@ html, body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  text-align:center;
   background:#000;
   z-index:90;
   transition:opacity 2s ease;
 }
-
-#intro h1,
-#intro p{
+#intro h1,#intro p{
   opacity:0;
   transition:opacity 3s ease;
-  color:#e6d3a3;
 }
 
-/* ---------- HORIZONTAL LAYOUT ---------- */
+/* Horizontal layout */
 #mainContent{
-  position:relative;
   width:100vw;
   height:100vh;
   opacity:0;
   transition:opacity 2s ease;
-  overflow:hidden;
 }
 
 .horizontal-container{
   display:flex;
-  flex-direction:row;
-  width:500vw; /* 5 scenes */
+  width:300vw;
   height:100vh;
   transition:transform 2s ease-in-out;
 }
@@ -105,75 +73,88 @@ html, body{
 section{
   width:100vw;
   height:100vh;
-  flex-shrink:0;
+  position:relative;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:60px 20px;
-  color:#e6d3a3;
+  overflow:hidden;
+}
+
+/* Background layer */
+.cosmic-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  z-index:-3;
+  animation:slowZoom 40s linear infinite;
+}
+
+/* Individual chapter backgrounds */
+.singularity .cosmic-bg{
+  background:url("singularity.jpg") center/cover no-repeat;
+}
+
+.expansion .cosmic-bg{
+  background:url("nebula.jpg") center/cover no-repeat;
+}
+
+.union .cosmic-bg{
+  background:url("galaxy.jpg") center/cover no-repeat;
+}
+
+/* Deity overlay */
+.deity-overlay{
+  position:absolute;
+  width:60%;
+  height:80%;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:url("shiva-shakti.png") center/contain no-repeat;
+  opacity:0.12;
+  filter:drop-shadow(0 0 30px rgba(255,215,0,0.3));
+  z-index:-2;
+}
+
+.deity-overlay.strong{
+  opacity:0.25;
+  filter:drop-shadow(0 0 60px rgba(255,215,0,0.6));
+}
+
+/* Content */
+.content{
+  max-width:700px;
+  padding:40px;
 }
 
 h2{
-  font-size:2.4rem;
+  font-size:2.5rem;
   margin-bottom:20px;
 }
 
-p{
+.story{
   font-family:'Playfair Display', serif;
   font-size:1.1rem;
   line-height:1.8;
-  max-width:700px;
+  opacity:0;
 }
 
-/* ---------- SCENE THEMES ---------- */
-.dark-red{
-  background:linear-gradient(to bottom, black, #200000);
-}
-
-.ash{
-  background:#111;
-}
-
-.snow{
-  background:linear-gradient(to bottom, #111, #1a1f2f);
-}
-
-/* ---------- HEARTBEAT ---------- */
-.heartbeat{
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.02);}
-  100%{transform:scale(1);}
-}
-
-/* ---------- WORD REVEAL ---------- */
-.reveal span{
+/* Word reveal */
+.story span{
   opacity:0;
   transition:opacity 0.5s ease;
 }
 
-/* ---------- SNOW ---------- */
-.snowflake{
-  position:fixed;
-  top:-10px;
-  color:white;
-  font-size:12px;
-  opacity:0.7;
-  animation:fall linear forwards;
-}
-@keyframes fall{
-  to{
-    transform:translateY(100vh);
-    opacity:0;
-  }
+@keyframes slowZoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.1);}
 }
 
-/* ---------- MOBILE OPTIMIZATION ---------- */
+/* Mobile */
 @media(max-width:768px){
   h2{font-size:1.8rem;}
-  p{font-size:0.95rem;}
-  .cinema-top,.cinema-bottom{height:40px;}
+  .story{font-size:0.95rem;}
 }
