@@ -5,6 +5,7 @@ const introTitle=document.getElementById("introTitle");
 const introSub=document.getElementById("introSub");
 const main=document.getElementById("mainContent");
 const sections=document.querySelectorAll("section");
+const container=document.querySelector(".horizontal-container");
 
 const ambient=document.getElementById("ambientSound");
 const bass=document.getElementById("bassSound");
@@ -18,10 +19,11 @@ const sceneFade=document.getElementById("sceneFade");
 let currentScene=0;
 let snowInterval=null;
 
-/* AUDIO FADE */
+/* ---------- AUDIO FADE ---------- */
 function fadeIn(audio,duration=3000,volume=0.6){
+  if(!audio) return;
   audio.volume=0;
-  audio.play();
+  audio.play().catch(()=>{});
   let step=volume/(duration/100);
   let fade=setInterval(()=>{
     if(audio.volume<volume){
@@ -31,6 +33,7 @@ function fadeIn(audio,duration=3000,volume=0.6){
 }
 
 function fadeOut(audio,duration=3000){
+  if(!audio) return;
   let step=audio.volume/(duration/100);
   let fade=setInterval(()=>{
     if(audio.volume>0.05){
@@ -43,7 +46,7 @@ function fadeOut(audio,duration=3000){
   },100);
 }
 
-/* WORD REVEAL */
+/* ---------- WORD REVEAL ---------- */
 function revealText(element){
   const words=element.innerText.split(" ");
   element.innerHTML="";
@@ -51,13 +54,13 @@ function revealText(element){
     const span=document.createElement("span");
     span.innerText=word+" ";
     element.appendChild(span);
-    setTimeout(()=>{span.style.opacity=1;},index*250);
+    setTimeout(()=>{
+      span.style.opacity=1;
+    },index*250);
   });
 }
 
-/* INTRO */
-document.body.style.overflow="hidden";
-
+/* ---------- INTRO ---------- */
 setTimeout(()=>introTitle.style.opacity=1,1500);
 setTimeout(()=>introSub.style.opacity=1,4000);
 
@@ -70,27 +73,28 @@ setTimeout(()=>{
   startFlow();
 },9000);
 
-/* TIMINGS */
+/* ---------- SCENE TIMINGS ---------- */
 const sceneTimings=[9000,11000,12000,10000,14000];
 
-function startFlow(){playScene(currentScene);}
+function startFlow(){
+  playScene(currentScene);
+}
 
 function playScene(index){
 
   if(index>=sections.length){
-    document.body.style.overflowY="auto";
     return;
   }
 
   sceneFade.style.opacity=1;
 
   setTimeout(()=>{
+
     sceneFade.style.opacity=0;
 
-    const section=sections[index];
-    section.classList.add("active");
+    container.style.transform=`translateX(-${index * 100}vw)`;
 
-    window.scrollTo({top:section.offsetTop,behavior:"smooth"});
+    const section=sections[index];
 
     section.querySelectorAll("p").forEach(p=>{
       revealText(p);
@@ -106,6 +110,7 @@ function playScene(index){
   },sceneTimings[index]);
 }
 
+/* ---------- SCENE EFFECTS ---------- */
 function handleScene(section){
 
   stopSnow();
@@ -123,13 +128,15 @@ function handleScene(section){
   }
 
   if(section.querySelector("h2").innerText.includes("Mahashivaratri")){
-    bell.play();
+    if(bell) bell.play();
     fadeIn(mantra,5000,0.6);
   }
 }
 
+/* ---------- SNOW ---------- */
 function startSnow(){
-  if(snowInterval)return;
+  if(snowInterval) return;
+
   snowInterval=setInterval(()=>{
     const snow=document.createElement("div");
     snow.classList.add("snowflake");
@@ -146,21 +153,6 @@ function stopSnow(){
     clearInterval(snowInterval);
     snowInterval=null;
   }
-}
-
-window.saveMessage=function(){
-  const msg=document.getElementById("loveMessage").value;
-  if(!msg)return;
-  let messages=JSON.parse(localStorage.getItem("eternalLove"))||[];
-  messages.push(msg);
-  localStorage.setItem("eternalLove",JSON.stringify(messages));
-  document.getElementById("loveMessage").value="";
-  alert("Your message now lives in eternity.");
-}
-
-window.restart=function(){
-  window.scrollTo({top:0,behavior:"smooth"});
-  setTimeout(()=>location.reload(),1500);
 }
 
 });
