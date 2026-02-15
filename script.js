@@ -1,6 +1,22 @@
+const slider = document.querySelector(".slider");
+const sections = document.querySelectorAll(".chapter");
+const fadeLayer = document.querySelector(".fade-layer");
+const ambient = document.getElementById("ambient");
+const mantra = document.getElementById("mantra");
+
+let current = 0;
+
+/* AUDIO START (on first interaction) */
+document.addEventListener("click", () => {
+  ambient.volume = 0.4;
+  mantra.volume = 0.2;
+  ambient.play();
+  mantra.play();
+}, { once:true });
+
+/* WORD REVEAL */
 function revealText(section){
   const p = section.querySelector(".story");
-
   if(p.dataset.revealed) return;
   p.dataset.revealed = true;
 
@@ -14,18 +30,19 @@ function revealText(section){
 
     setTimeout(()=>{
       span.style.opacity = 1;
-    }, index * 120);
+    }, index * 150);
   });
 }
 
-const slider = document.querySelector(".slider");
-const sections = document.querySelectorAll(".chapter");
-
-let current = 0;
-
+/* SLIDE WITH FADE */
 function goToSlide(index){
-  slider.style.transform = `translateX(-${index * 100}vw)`;
-  revealText(sections[index]);
+  fadeLayer.style.opacity = 1;
+
+  setTimeout(()=>{
+    slider.style.transform = `translateX(-${index * 100}vw)`;
+    revealText(sections[index]);
+    fadeLayer.style.opacity = 0;
+  }, 800);
 }
 
 goToSlide(0);
@@ -36,4 +53,48 @@ setInterval(()=>{
     current = 0;
   }
   goToSlide(current);
-}, 10000);
+}, 12000);
+
+/* PARTICLE STARS */
+document.querySelectorAll(".stars").forEach(canvas=>{
+  const ctx = canvas.getContext("2d");
+
+  function resize(){
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const stars = [];
+  const count = window.innerWidth < 768 ? 60 : 120;
+
+  for(let i=0;i<count;i++){
+    stars.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*1.5,
+      s:Math.random()*0.4+0.1,
+      o:Math.random()
+    });
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(star=>{
+      ctx.beginPath();
+      ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${star.o})`;
+      ctx.fill();
+
+      star.y+=star.s;
+      if(star.y>canvas.height){
+        star.y=0;
+        star.x=Math.random()*canvas.width;
+      }
+    });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
