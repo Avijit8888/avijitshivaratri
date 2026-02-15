@@ -1,48 +1,41 @@
-/* RESET */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
-/* BODY */
 html, body{
   height:100%;
   background:black;
   font-family:'Cinzel', serif;
-  overflow:hidden; /* IMPORTANT */
+  overflow:hidden;
   color:#e6d3a3;
 }
 
-/* SLIDER */
 .slider{
   display:flex;
+  width:700vw; /* 7 chapters */
   height:100vh;
-  width:700vw; /* 7 sections × 100vw */
   transition:transform 1.8s ease-in-out;
 }
 
-/* EACH CHAPTER */
 .chapter{
   width:100vw;
   height:100vh;
-  flex-shrink:0;   /* IMPORTANT */
+  flex-shrink:0;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:40px;
-  position:relative;
+  padding:50px;
 }
 
-/* INNER CONTENT */
 .chapter-inner{
-  max-width:800px;
+  max-width:850px;
 }
 
-/* HEADINGS */
 h1{
-  font-size:1rem;
+  font-size:0.9rem;
   letter-spacing:3px;
   margin-bottom:10px;
   opacity:0.7;
@@ -53,20 +46,18 @@ h2{
   margin-bottom:20px;
 }
 
-/* PARAGRAPH */
 .story{
   font-family:'Playfair Display', serif;
   font-size:1.1rem;
   line-height:1.8;
 }
 
-/* WORD REVEAL */
 .story span{
   opacity:0;
   transition:opacity 0.4s ease;
 }
 
-/* BACKGROUND COLORS FOR TESTING */
+/* Background Colors */
 .singularity{ background:#000; }
 .expansion{ background:#111; }
 .shakti{ background:#140c1c; }
@@ -75,7 +66,6 @@ h2{
 .love{ background:#1c1010; }
 .eternal{ background:#0f1a1a; }
 
-/* MOBILE */
 @media(max-width:768px){
   h2{font-size:1.6rem;}
   .story{font-size:0.95rem;}
