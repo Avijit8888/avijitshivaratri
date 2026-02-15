@@ -1,109 +1,72 @@
-document.addEventListener("DOMContentLoaded", function () {
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  const container = document.querySelector(".horizontal-container");
-  const sections = document.querySelectorAll("section");
+html, body{
+  height:100%;
+  background:black;
+  font-family:'Cinzel', serif;
+  overflow:hidden;
+  color:#e6d3a3;
+}
 
-  let current = 0;
-  const total = sections.length;
+.slider{
+  display:flex;
+  width:700vw; /* 7 chapters */
+  height:100vh;
+  transition:transform 1.8s ease-in-out;
+}
 
-  /* -------- WORD REVEAL -------- */
+.chapter{
+  width:100vw;
+  height:100vh;
+  flex-shrink:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:50px;
+}
 
-  function revealText(section){
-    const paragraphs = section.querySelectorAll("p");
+.chapter-inner{
+  max-width:850px;
+}
 
-    paragraphs.forEach(p => {
-      if (p.dataset.revealed) return;
-      p.dataset.revealed = true;
+h1{
+  font-size:0.9rem;
+  letter-spacing:3px;
+  margin-bottom:10px;
+  opacity:0.7;
+}
 
-      const words = p.innerText.trim().split(" ");
-      p.innerHTML = "";
+h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
 
-      words.forEach((word, index) => {
-        const span = document.createElement("span");
-        span.textContent = word + " ";
-        p.appendChild(span);
+.story{
+  font-family:'Playfair Display', serif;
+  font-size:1.1rem;
+  line-height:1.8;
+}
 
-        setTimeout(() => {
-          span.style.opacity = 1;
-        }, index * 180);
-      });
-    });
-  }
+.story span{
+  opacity:0;
+  transition:opacity 0.4s ease;
+}
 
-  /* -------- AUTO SLIDE -------- */
+/* Background Colors */
+.singularity{ background:#000; }
+.expansion{ background:#111; }
+.shakti{ background:#140c1c; }
+.shiva{ background:#0a1020; }
+.union{ background:#1a0d1d; }
+.love{ background:#1c1010; }
+.eternal{ background:#0f1a1a; }
 
-  function slideTo(index){
-    container.style.transform = `translateX(-${index * 100}vw)`;
-    revealText(sections[index]);
-  }
-
-  function startAuto(){
-    slideTo(current);
-
-    setInterval(() => {
-      current++;
-      if(current >= total){
-        current = 0;
-      }
-      slideTo(current);
-    }, 10000); // 10 seconds per chapter
-  }
-
-  startAuto();
-
-
-  /* -------- PARTICLE STARS -------- */
-
-  sections.forEach(section => {
-
-    const canvas = document.createElement("canvas");
-    canvas.classList.add("stars");
-    section.prepend(canvas);
-
-    const ctx = canvas.getContext("2d");
-
-    function resize(){
-      canvas.width = section.offsetWidth;
-      canvas.height = section.offsetHeight;
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    const starCount = window.innerWidth < 768 ? 60 : 120;
-    const stars = [];
-
-    for(let i=0;i<starCount;i++){
-      stars.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        radius:Math.random()*1.5,
-        speed:Math.random()*0.3+0.1,
-        opacity:Math.random()
-      });
-    }
-
-    function animate(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-
-      stars.forEach(star=>{
-        ctx.beginPath();
-        ctx.arc(star.x,star.y,star.radius,0,Math.PI*2);
-        ctx.fillStyle=`rgba(255,255,255,${star.opacity})`;
-        ctx.fill();
-
-        star.y+=star.speed;
-
-        if(star.y>canvas.height){
-          star.y=0;
-          star.x=Math.random()*canvas.width;
-        }
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  });
-
-});
+@media(max-width:768px){
+  h2{font-size:1.6rem;}
+  .story{font-size:0.95rem;}
+}
