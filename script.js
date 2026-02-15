@@ -1,66 +1,85 @@
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded", function () {
 
-const intro=document.getElementById("intro");
-const introTitle=document.getElementById("introTitle");
-const introSub=document.getElementById("introSub");
-const main=document.getElementById("mainContent");
-const sections=document.querySelectorAll("section");
-const container=document.querySelector(".horizontal-container");
-const fade=document.getElementById("sceneFade");
+  /* -------- WORD REVEAL ON SCROLL -------- */
 
-let currentScene=0;
+  function revealText(element) {
+    if (element.dataset.revealed) return;
+    element.dataset.revealed = true;
 
-/* Intro reveal */
-setTimeout(()=>introTitle.style.opacity=1,1500);
-setTimeout(()=>introSub.style.opacity=1,3500);
+    const words = element.innerText.trim().split(" ");
+    element.innerHTML = "";
 
-setTimeout(()=>{
-  intro.style.opacity=0;
-  main.style.opacity=1;
-  startFlow();
-},7000);
+    words.forEach((word, index) => {
+      const span = document.createElement("span");
+      span.textContent = word + " ";
+      element.appendChild(span);
 
-/* Word reveal */
-function revealText(element){
-  const words=element.innerText.split(" ");
-  element.innerHTML="";
-  words.forEach((word,index)=>{
-    const span=document.createElement("span");
-    span.innerText=word+" ";
-    element.appendChild(span);
-    setTimeout(()=>span.style.opacity=1,index*250);
+      setTimeout(() => {
+        span.style.opacity = 1;
+      }, index * 180);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        revealText(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  document.querySelectorAll(".story").forEach(p => {
+    observer.observe(p);
   });
-}
 
-/* Cinematic flow */
-const sceneDurations=[10000,10000,12000];
 
-function startFlow(){
-  playScene(currentScene);
-}
+  /* -------- PARTICLE STARS -------- */
 
-function playScene(index){
+  document.querySelectorAll(".stars").forEach(canvas => {
 
-  if(index>=sections.length) return;
+    const ctx = canvas.getContext("2d");
 
-  fade.style.opacity=1;
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
 
-  setTimeout(()=>{
-    fade.style.opacity=0;
+    resize();
+    window.addEventListener("resize", resize);
 
-    container.style.transform=`translateX(-${index*100}vw)`;
+    const starCount = window.innerWidth < 768 ? 60 : 120;
+    const stars = [];
 
-    const section=sections[index];
-    const paragraph=section.querySelector(".story");
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.4 + 0.1,
+        opacity: Math.random()
+      });
+    }
 
-    revealText(paragraph);
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  },1500);
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
 
-  setTimeout(()=>{
-    currentScene++;
-    playScene(currentScene);
-  },sceneDurations[index]);
-}
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  });
 
 });
