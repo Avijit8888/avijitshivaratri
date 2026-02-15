@@ -1,130 +1,82 @@
+/* RESET */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
+/* BODY */
 html, body{
   height:100%;
-  background:#000;
+  background:black;
   font-family:'Cinzel', serif;
+  overflow:hidden; /* IMPORTANT */
   color:#e6d3a3;
-  overflow:hidden; /* no manual scroll */
 }
 
-/* Cinematic Bars */
-.cinema-top, .cinema-bottom{
-  position:fixed;
-  width:100%;
-  height:40px;
-  background:#000;
-  z-index:100;
-}
-.cinema-top{top:0;}
-.cinema-bottom{bottom:0;}
-
-/* Wrapper */
-.main-wrapper{
-  width:100vw;
-  height:100vh;
-  overflow:hidden;
-}
-
-/* Horizontal Layout */
-.horizontal-container{
+/* SLIDER */
+.slider{
   display:flex;
-  width:700vw; /* 7 sections */
   height:100vh;
+  width:700vw; /* 7 sections × 100vw */
   transition:transform 1.8s ease-in-out;
 }
 
-section{
+/* EACH CHAPTER */
+.chapter{
   width:100vw;
   height:100vh;
-  flex-shrink:0;
-  position:relative;
+  flex-shrink:0;   /* IMPORTANT */
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:60px 20px;
-  background:#000;
-}
-
-/* Overlay */
-.overlay{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.65);
-  top:0;
-  left:0;
-  z-index:2;
-}
-
-/* Backgrounds */
-.singularity{ background:url("singularity.jpg") center/cover no-repeat; }
-.expansion{ background:url("nebula.jpg") center/cover no-repeat; }
-.shakti{ background:url("nebula.jpg") center/cover no-repeat; }
-.shiva{ background:url("galaxy.jpg") center/cover no-repeat; }
-.union{ background:url("galaxy.jpg") center/cover no-repeat; }
-.love{ background:url("nebula.jpg") center/cover no-repeat; }
-.eternal{ background:url("galaxy.jpg") center/cover no-repeat; }
-
-/* Shiva Overlay */
-.deity-overlay{
-  position:absolute;
-  width:65%;
-  height:80%;
-  background:url("shiva-shakti.png") center/contain no-repeat;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  opacity:0.18;
-  z-index:3;
-  filter:drop-shadow(0 0 40px rgba(255,215,0,0.4));
-}
-.deity-overlay.strong{
-  opacity:0.35;
-  filter:drop-shadow(0 0 70px rgba(255,215,0,0.7));
-}
-
-/* Content */
-.content{
+  padding:40px;
   position:relative;
-  z-index:4;
-  max-width:750px;
+}
+
+/* INNER CONTENT */
+.chapter-inner{
+  max-width:800px;
+}
+
+/* HEADINGS */
+h1{
+  font-size:1rem;
+  letter-spacing:3px;
+  margin-bottom:10px;
+  opacity:0.7;
 }
 
 h2{
-  font-size:2.2rem;
+  font-size:2rem;
   margin-bottom:20px;
 }
 
-p{
+/* PARAGRAPH */
+.story{
   font-family:'Playfair Display', serif;
-  font-size:1.05rem;
+  font-size:1.1rem;
   line-height:1.8;
 }
 
-/* Word reveal */
-p span{
+/* WORD REVEAL */
+.story span{
   opacity:0;
   transition:opacity 0.4s ease;
 }
 
-/* Star Canvas */
-.stars{
-  position:absolute;
-  width:100%;
-  height:100%;
-  top:0;
-  left:0;
-  z-index:1;
-}
+/* BACKGROUND COLORS FOR TESTING */
+.singularity{ background:#000; }
+.expansion{ background:#111; }
+.shakti{ background:#140c1c; }
+.shiva{ background:#0a1020; }
+.union{ background:#1a0d1d; }
+.love{ background:#1c1010; }
+.eternal{ background:#0f1a1a; }
 
-/* Mobile */
+/* MOBILE */
 @media(max-width:768px){
   h2{font-size:1.6rem;}
-  p{font-size:0.9rem;}
+  .story{font-size:0.95rem;}
 }
