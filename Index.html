@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiva & Shakti — Eternal Love</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------------- GLOBAL ---------------- */
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background:black;
+  color:#e6d3a3;
+  font-family:'Cinzel', serif;
+  overflow:hidden;
+  scroll-behavior:smooth;
+}
+
+/* Cinematic letterbox */
+.cinema-top, .cinema-bottom {
+  position:fixed;
+  width:100%;
+  height:60px;
+  background:black;
+  z-index:50;
+}
+.cinema-top { top:0; }
+.cinema-bottom { bottom:0; }
+
+/* Grain overlay */
+body::after {
+  content:"";
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity:0.05;
+  pointer-events:none;
+  z-index:40;
+}
+
+/* Parallax Galaxy */
+.parallax {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa");
+  background-size:cover;
+  background-position:center;
+  z-index:-2;
+  transform:scale(1.1);
+  transition:transform 20s linear;
+}
+
+/* Dark vignette */
+.overlay {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:radial-gradient(circle at center, transparent 40%, black 100%);
+  pointer-events:none;
+  z-index:30;
+}
+
+/* ---------------- INTRO ---------------- */
+
+#intro {
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  z-index:20;
+  transition:opacity 2s ease;
+}
+
+#intro h1, #intro p {
+  opacity:0;
+  transition:opacity 3s ease;
+}
+
+#intro h1 {
+  font-size:2.5rem;
+}
+
+#intro p {
+  margin-top:20px;
+  font-size:1.2rem;
+  font-family:'Playfair Display', serif;
+}
+
+/* ---------------- SCENES ---------------- */
+
+#mainContent {
+  opacity:0;
+  transition:opacity 2s ease;
+}
+
+section {
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:80px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.5s ease;
+}
+
+section.active {
+  opacity:1;
+  transform:translateY(0);
+}
+
+h2 {
+  font-size:2.8rem;
+  margin-bottom:20px;
+}
+
+p {
+  max-width:800px;
+  line-height:1.9;
+  font-size:1.2rem;
+  font-family:'Playfair Display', serif;
+}
+
+/* Section color tones */
+.dark-red { background:linear-gradient(to bottom, black, #2a0000); }
+.ash { background:#111; }
+.snow { background:linear-gradient(to bottom, #111, #1a1f2f); }
+
+/* ---------------- MESSAGE AREA ---------------- */
+
+textarea {
+  width:80%;
+  max-width:600px;
+  height:120px;
+  margin-top:20px;
+  padding:15px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid gold;
+  color:white;
+  border-radius:8px;
+  outline:none;
+}
+
+button {
+  margin-top:20px;
+  padding:12px 30px;
+  background:transparent;
+  border:2px solid gold;
+  color:gold;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.4s;
+  font-family:'Cinzel', serif;
+}
+
+button:hover {
+  background:gold;
+  color:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="cinema-top"></div>
+<div class="cinema-bottom"></div>
+<div class="parallax"></div>
+<div class="overlay"></div>
+
+<!-- INTRO -->
+<div id="intro">
+  <h1 id="introTitle">Love does not begin.</h1>
+  <p id="introSub">It remembers.</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+
+<section>
+  <div>
+    <h2>Before Time</h2>
+    <p>
+      Before stars burned in the sky…<br>
+      before breath… before destiny…<br><br>
+      there was stillness.<br><br>
+      In that stillness — One.
+    </p>
+  </div>
+</section>
+
+<section class="dark-red">
+  <div>
+    <h2>Sati</h2>
+    <p>
+      Pride mocked love.<br>
+      Fire answered humiliation.<br><br>
+      And the universe trembled.
+    </p>
+  </div>
+</section>
+
+<section class="ash">
+  <div>
+    <h2>Grief</h2>
+    <p>
+      Even gods feel loss.<br><br>
+      Love had no breath.<br>
+      But it still had weight.
+    </p>
+  </div>
+</section>
+
+<section class="snow">
+  <div>
+    <h2>Parvati</h2>
+    <p>
+      Death could not end eternity.<br><br>
+      She returned.<br>
+      Not fragile.<br>
+      But unbreakable.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div>
+    <h2>Mahashivaratri</h2>
+    <p>
+      On the darkest night…<br><br>
+      consciousness and energy<br>
+      became one again.
+    </p>
+
+    <br><br>
+    <p><em>Leave a message that transcends lifetimes.</em></p>
+
+    <textarea id="loveMessage"></textarea><br>
+    <button onclick="saveMessage()">Release Into Eternity</button><br>
+    <button onclick="restart()">🔱 Begin Again</button>
+
+  </div>
+</section>
+
+</div>
+
+<script>
+
+/* Intro sequence */
+const introTitle = document.getElementById("introTitle");
+const introSub = document.getElementById("introSub");
+const intro = document.getElementById("intro");
+const main = document.getElementById("mainContent");
+
+setTimeout(()=> introTitle.style.opacity = 1, 1500);
+setTimeout(()=> introSub.style.opacity = 1, 4500);
+
+setTimeout(()=>{
+  intro.style.opacity = 0;
+  document.body.style.overflow = "auto";
+  main.style.opacity = 1;
+}, 9000);
+
+/* Scroll reveal */
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+  const trigger = window.innerHeight * 0.85;
+  sections.forEach(sec=>{
+    if(sec.getBoundingClientRect().top < trigger){
+      sec.classList.add("active");
+    }
+  });
+});
+
+/* Parallax slow zoom */
+const bg = document.querySelector(".parallax");
+let scale = 1.1;
+setInterval(()=>{
+  scale += 0.0005;
+  bg.style.transform = `scale(${scale})`;
+}, 50);
+
+/* Save message to localStorage */
+function saveMessage(){
+  const msg = document.getElementById("loveMessage").value;
+  if(!msg) return;
+
+  let messages = JSON.parse(localStorage.getItem("eternalLove")) || [];
+  messages.push(msg);
+  localStorage.setItem("eternalLove", JSON.stringify(messages));
+
+  document.getElementById("loveMessage").value="";
+  alert("Your message now lives in eternity.");
+}
+
+function restart(){
+  window.scrollTo({top:0, behavior:"smooth"});
+  setTimeout(()=> location.reload(), 1500);
+}
+
+</script>
+
+</body>
+</html>
