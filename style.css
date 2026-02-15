@@ -8,31 +8,31 @@ html, body{
   height:100%;
   background:#000;
   font-family:'Cinzel', serif;
-  overflow-x:auto;
-  overflow-y:hidden;
   color:#e6d3a3;
+
+  overflow-x:auto;   /* allow horizontal */
+  overflow-y:hidden; /* disable vertical */
   scroll-behavior:smooth;
 }
 
-/* Cinematic bars */
+/* Cinematic Bars */
 .cinema-top, .cinema-bottom{
   position:fixed;
   width:100%;
-  height:50px;
+  height:40px;
   background:#000;
   z-index:100;
 }
 .cinema-top{top:0;}
 .cinema-bottom{bottom:0;}
 
-/* Horizontal layout */
+/* REMOVE wrapper scrolling */
 .main-wrapper{
-  width:100%;
+  width:400vw;   /* match total sections */
   height:100vh;
-  overflow-x:auto;
-  overflow-y:hidden;
 }
 
+/* Horizontal container */
 .horizontal-container{
   display:flex;
   width:400vw;
@@ -42,29 +42,24 @@ html, body{
 section{
   width:100vw;
   height:100vh;
-  position:relative;
   flex-shrink:0;
+  position:relative;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:60px 20px;
-  background-size:cover;
-  background-position:center;
+  background:#000;
 }
 
-/* Backgrounds */
-.singularity{
-  background:url("singularity.jpg") center/cover no-repeat;
-}
-.expansion{
-  background:url("nebula.jpg") center/cover no-repeat;
-}
-.union{
-  background:url("galaxy.jpg") center/cover no-repeat;
-}
-.eternal{
-  background:url("galaxy.jpg") center/cover no-repeat;
+/* Stars */
+.stars{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:1;
 }
 
 /* Overlay */
@@ -78,49 +73,22 @@ section{
   z-index:2;
 }
 
-/* Star canvas */
-.stars{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-}
-
-/* Shiva-Shakti */
-.deity-overlay{
-  position:absolute;
-  width:60%;
-  height:80%;
-  background:url("shiva-shakti.png") center/contain no-repeat;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  opacity:0.15;
-  z-index:3;
-  filter:drop-shadow(0 0 30px rgba(255,215,0,0.3));
-}
-.deity-overlay.strong{
-  opacity:0.3;
-  filter:drop-shadow(0 0 60px rgba(255,215,0,0.6));
-}
-
+/* Content */
 .content{
-  max-width:700px;
   position:relative;
-  z-index:4;
+  z-index:3;
+  max-width:700px;
 }
 
 h2{
-  font-size:2.4rem;
+  font-size:2rem;
   margin-bottom:20px;
 }
 
 .story{
   font-family:'Playfair Display', serif;
-  font-size:1.1rem;
-  line-height:1.8;
+  font-size:1rem;
+  line-height:1.7;
 }
 
 .story span{
@@ -128,8 +96,25 @@ h2{
   transition:opacity 0.4s ease;
 }
 
+/* Shiva-Shakti overlay */
+.deity-overlay{
+  position:absolute;
+  width:70%;
+  height:80%;
+  background:url("shiva-shakti.png") center/contain no-repeat;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  opacity:0.2;
+  z-index:2;
+}
+
+.deity-overlay.strong{
+  opacity:0.35;
+}
+
 /* Mobile */
 @media(max-width:768px){
-  h2{font-size:1.7rem;}
-  .story{font-size:0.95rem;}
+  h2{font-size:1.6rem;}
+  .story{font-size:0.9rem;}
 }
