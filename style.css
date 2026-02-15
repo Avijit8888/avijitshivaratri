@@ -6,21 +6,19 @@
 
 html, body{
   height:100%;
-  background:black;
   overflow:hidden;
+  background:black;
   font-family:'Cinzel', serif;
   color:#e6d3a3;
 }
 
-/* SLIDER */
 .slider{
   display:flex;
-  width:300vw;
+  width:700vw;
   height:100vh;
   transition:transform 2s ease-in-out;
 }
 
-/* CHAPTER */
 .chapter{
   width:100vw;
   height:100vh;
@@ -30,23 +28,19 @@ html, body{
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:50px;
+  padding:60px 40px;
   background-size:cover;
   background-position:center;
 }
 
-/* Background Images */
-.singularity{
-  background:url("assets/singularity.jpg") center/cover no-repeat;
-}
-.expansion{
-  background:url("assets/nebula.jpg") center/cover no-repeat;
-}
-.union{
-  background:url("assets/galaxy.jpg") center/cover no-repeat;
-}
+.singularity{ background:url("assets/singularity.jpg") center/cover no-repeat; }
+.expansion{ background:url("assets/nebula.jpg") center/cover no-repeat; }
+.shakti{ background:url("assets/nebula.jpg") center/cover no-repeat; }
+.shiva{ background:url("assets/galaxy.jpg") center/cover no-repeat; }
+.union{ background:url("assets/galaxy.jpg") center/cover no-repeat; }
+.love{ background:url("assets/nebula.jpg") center/cover no-repeat; }
+.eternal{ background:url("assets/galaxy.jpg") center/cover no-repeat; }
 
-/* Dark overlay */
 .overlay{
   position:absolute;
   width:100%;
@@ -57,7 +51,6 @@ html, body{
   z-index:2;
 }
 
-/* Shiva-Shakti overlay */
 .deity-overlay{
   position:absolute;
   width:60%;
@@ -68,24 +61,28 @@ html, body{
   transform:translate(-50%,-50%);
   opacity:0.25;
   z-index:3;
-  filter:drop-shadow(0 0 40px gold);
-  animation:glow 4s ease-in-out infinite alternate;
+  filter:drop-shadow(0 0 50px gold);
 }
 
-@keyframes glow{
-  from{opacity:0.2;}
-  to{opacity:0.35;}
+.deity-overlay.strong{
+  opacity:0.35;
 }
 
-/* Content */
 .chapter-inner{
   position:relative;
   z-index:4;
-  max-width:850px;
+  max-width:900px;
+}
+
+h1{
+  font-size:0.9rem;
+  letter-spacing:3px;
+  margin-bottom:10px;
+  opacity:0.7;
 }
 
 h2{
-  font-size:2.2rem;
+  font-size:2rem;
   margin-bottom:25px;
 }
 
@@ -100,7 +97,6 @@ h2{
   transition:opacity 0.5s ease;
 }
 
-/* Star canvas */
 .stars{
   position:absolute;
   width:100%;
@@ -110,7 +106,6 @@ h2{
   z-index:1;
 }
 
-/* Fade layer */
 .fade-layer{
   position:fixed;
   width:100%;
