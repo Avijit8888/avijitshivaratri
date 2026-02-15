@@ -10,7 +10,7 @@ let current = 0;
 
 /* AUDIO START */
 document.addEventListener("click", () => {
-  if (ambient && mantra) {
+  if(ambient && mantra){
     ambient.volume = 0.4;
     mantra.volume = 0.2;
     ambient.play().catch(()=>{});
@@ -18,6 +18,7 @@ document.addEventListener("click", () => {
   }
 }, { once:true });
 
+/* WORD REVEAL */
 function revealText(section){
   const p = section.querySelector(".story");
   if(!p || p.dataset.revealed) return;
@@ -39,15 +40,13 @@ function revealText(section){
 }
 
 function goToSlide(index){
-  if(!slider || !sections[index] || !fadeLayer) return;
-
   fadeLayer.style.opacity = 1;
 
   setTimeout(()=>{
     slider.style.transform = `translateX(-${index * 100}vw)`;
     revealText(sections[index]);
     fadeLayer.style.opacity = 0;
-  }, 700);
+  }, 600);
 }
 
 goToSlide(0);
@@ -73,9 +72,7 @@ document.querySelectorAll(".stars").forEach(canvas=>{
   window.addEventListener("resize", resize);
 
   const stars = [];
-  const count = 100;
-
-  for(let i=0;i<count;i++){
+  for(let i=0;i<100;i++){
     stars.push({
       x:Math.random()*canvas.width,
       y:Math.random()*canvas.height,
