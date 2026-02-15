@@ -5,90 +5,114 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shiva & Shakti — Eternal Love</title>
 
-<link rel="stylesheet" href="style.css">
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- External CSS -->
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- Cinematic Bars -->
 <div class="cinema-top"></div>
 <div class="cinema-bottom"></div>
+
+<!-- Background -->
 <div class="parallax"></div>
 <div class="overlay"></div>
+
+<!-- Scene Fade Overlay -->
 <div id="sceneFade"></div>
 
-<!-- INTRO -->
+<!-- INTRO SCREEN -->
 <div id="intro">
   <h1 id="introTitle">Love does not begin.</h1>
   <p id="introSub">It remembers.</p>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN CINEMATIC CONTENT -->
 <div id="mainContent">
 
-<section>
-  <div>
-    <h2>Before Time</h2>
-    <p>
-      Before stars burned in the sky…
-      before destiny…
-      there was stillness.
-      In that stillness — One.
-    </p>
-  </div>
-</section>
+  <div class="horizontal-container">
 
-<section class="dark-red">
-  <div>
-    <h2>Sati</h2>
-    <p>
-      Pride mocked love.
-      Fire answered humiliation.
-      And the universe trembled.
-    </p>
-  </div>
-</section>
+    <!-- SCENE 1 -->
+    <section>
+      <div>
+        <h2>Before Time</h2>
+        <p>
+          Before stars burned in the sky…
+          before destiny…
+          before creation itself…
+          there was stillness.
+          In that stillness — One.
+        </p>
+      </div>
+    </section>
 
-<section class="ash">
-  <div>
-    <h2>Grief</h2>
-    <p>
-      Even gods feel loss.
-      Love had no breath.
-      But it still had weight.
-    </p>
-  </div>
-</section>
+    <!-- SCENE 2 -->
+    <section class="dark-red">
+      <div>
+        <h2>Sati</h2>
+        <p>
+          Pride mocked love.
+          Fire answered humiliation.
+          And the universe trembled.
+        </p>
+      </div>
+    </section>
 
-<section class="snow">
-  <div>
-    <h2>Parvati</h2>
-    <p>
-      Death could not end eternity.
-      She returned stronger.
-    </p>
-  </div>
-</section>
+    <!-- SCENE 3 -->
+    <section class="ash">
+      <div>
+        <h2>Grief</h2>
+        <p>
+          Even gods feel loss.
+          Love had no breath.
+          But it still had weight.
+        </p>
+      </div>
+    </section>
 
-<section>
-  <div>
-    <h2>Mahashivaratri</h2>
-    <p>
-      On the darkest night…
-      consciousness and energy became one again.
-    </p>
+    <!-- SCENE 4 -->
+    <section class="snow">
+      <div>
+        <h2>Parvati</h2>
+        <p>
+          Death could not end eternity.
+          She returned stronger.
+          Devotion became power.
+        </p>
+      </div>
+    </section>
 
-    <textarea id="loveMessage" placeholder="Leave your eternal message..."></textarea>
-    <br>
-    <button onclick="saveMessage()">Release Into Eternity</button>
-    <br>
-    <button onclick="restart()">🔱 Begin Again</button>
+    <!-- SCENE 5 -->
+    <section>
+      <div>
+        <h2>Mahashivaratri</h2>
+        <p>
+          On the darkest night…
+          consciousness and energy
+          became one again.
+        </p>
+
+        <br><br>
+
+        <p><em>Leave a message that transcends lifetimes.</em></p>
+
+        <textarea id="loveMessage" placeholder="Your eternal message..."></textarea>
+        <br>
+        <button onclick="saveMessage()">Release Into Eternity</button>
+        <br>
+        <button onclick="restart()">🔱 Begin Again</button>
+      </div>
+    </section>
+
   </div>
-</section>
 
 </div>
 
-<!-- AUDIO -->
+<!-- AUDIO FILES -->
 <audio id="ambientSound" loop src="ambient.mp3"></audio>
 <audio id="bassSound" loop src="bass.mp3"></audio>
 <audio id="heartbeatSound" loop src="heartbeat.mp3"></audio>
@@ -96,6 +120,8 @@
 <audio id="bellSound" src="bell.mp3"></audio>
 <audio id="mantraSound" loop src="mantra.mp3"></audio>
 
+<!-- External JS -->
 <script src="script.js"></script>
+
 </body>
 </html>
