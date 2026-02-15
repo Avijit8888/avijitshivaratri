@@ -12,9 +12,10 @@ html, body{
   color:#e6d3a3;
 }
 
+/* SLIDER */
 .slider{
   display:flex;
-  width:700vw;
+  width:700vw;   /* 7 chapters */
   height:100vh;
   transition:transform 2s ease-in-out;
 }
@@ -33,6 +34,7 @@ html, body{
   background-position:center;
 }
 
+/* BACKGROUNDS */
 .singularity{ background:url("assets/singularity.jpg") center/cover no-repeat; }
 .expansion{ background:url("assets/nebula.jpg") center/cover no-repeat; }
 .shakti{ background:url("assets/nebula.jpg") center/cover no-repeat; }
@@ -49,23 +51,6 @@ html, body{
   top:0;
   left:0;
   z-index:2;
-}
-
-.deity-overlay{
-  position:absolute;
-  width:60%;
-  height:80%;
-  background:url("assets/shiva-shakti.png") center/contain no-repeat;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  opacity:0.25;
-  z-index:3;
-  filter:drop-shadow(0 0 50px gold);
-}
-
-.deity-overlay.strong{
-  opacity:0.35;
 }
 
 .chapter-inner{
@@ -97,6 +82,7 @@ h2{
   transition:opacity 0.5s ease;
 }
 
+/* STARS */
 .stars{
   position:absolute;
   width:100%;
@@ -106,6 +92,37 @@ h2{
   z-index:1;
 }
 
+/* SHIVA & SHAKTI */
+.duality{
+  position:absolute;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:0 10%;
+  z-index:3;
+}
+
+.shiva-img{
+  width:25%;
+  opacity:0.35;
+  filter:drop-shadow(0 0 40px blue);
+  animation:float 6s ease-in-out infinite;
+}
+
+.shakti-img{
+  width:25%;
+  opacity:0.35;
+  filter:drop-shadow(0 0 40px crimson);
+  animation:float 6s ease-in-out infinite reverse;
+}
+
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-20px);}
+  100%{transform:translateY(0);}
+}
+
+/* FADE */
 .fade-layer{
   position:fixed;
   width:100%;
