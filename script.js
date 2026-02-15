@@ -1,134 +1,166 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded",function(){
 
-    const intro = document.getElementById("intro");
-    const introTitle = document.getElementById("introTitle");
-    const introSub = document.getElementById("introSub");
-    const main = document.getElementById("mainContent");
-    const sections = document.querySelectorAll("section");
+const intro=document.getElementById("intro");
+const introTitle=document.getElementById("introTitle");
+const introSub=document.getElementById("introSub");
+const main=document.getElementById("mainContent");
+const sections=document.querySelectorAll("section");
 
-    let currentScene = 0;
-    let snowInterval = null;
+const ambient=document.getElementById("ambientSound");
+const bass=document.getElementById("bassSound");
+const heartbeat=document.getElementById("heartbeatSound");
+const wind=document.getElementById("windSound");
+const bell=document.getElementById("bellSound");
+const mantra=document.getElementById("mantraSound");
 
-    /* ---------------- INTRO SEQUENCE ---------------- */
+const sceneFade=document.getElementById("sceneFade");
 
-    document.body.style.overflow = "hidden";
+let currentScene=0;
+let snowInterval=null;
 
-    setTimeout(() => {
-        introTitle.style.opacity = 1;
-    }, 1500);
+/* AUDIO FADE */
+function fadeIn(audio,duration=3000,volume=0.6){
+  audio.volume=0;
+  audio.play();
+  let step=volume/(duration/100);
+  let fade=setInterval(()=>{
+    if(audio.volume<volume){
+      audio.volume=Math.min(audio.volume+step,volume);
+    }else clearInterval(fade);
+  },100);
+}
 
-    setTimeout(() => {
-        introSub.style.opacity = 1;
-    }, 4500);
-
-    setTimeout(() => {
-        intro.style.opacity = 0;
-        intro.style.pointerEvents = "none";
-        main.style.opacity = 1;
-        startCinematicFlow();
-    }, 9000);
-
-
-    /* ---------------- SCENE DURATIONS ---------------- */
-
-    const sceneTimings = [
-        8000,  // Before Time (slow build)
-        10000, // Sati (emotional intensity)
-        11000, // Grief (long pause, heavy)
-        9000,  // Parvati (calm strength)
-        12000  // Mahashivaratri (final union, longest)
-    ];
-
-
-    /* ---------------- CINEMATIC FLOW ---------------- */
-
-    function startCinematicFlow() {
-        playScene(currentScene);
+function fadeOut(audio,duration=3000){
+  let step=audio.volume/(duration/100);
+  let fade=setInterval(()=>{
+    if(audio.volume>0.05){
+      audio.volume-=step;
+    }else{
+      audio.pause();
+      audio.currentTime=0;
+      clearInterval(fade);
     }
+  },100);
+}
 
-    function playScene(index) {
+/* WORD REVEAL */
+function revealText(element){
+  const words=element.innerText.split(" ");
+  element.innerHTML="";
+  words.forEach((word,index)=>{
+    const span=document.createElement("span");
+    span.innerText=word+" ";
+    element.appendChild(span);
+    setTimeout(()=>{span.style.opacity=1;},index*250);
+  });
+}
 
-        if (index >= sections.length) {
-            document.body.style.overflowY = "auto"; // unlock scroll at end
-            return;
-        }
+/* INTRO */
+document.body.style.overflow="hidden";
 
-        const section = sections[index];
+setTimeout(()=>introTitle.style.opacity=1,1500);
+setTimeout(()=>introSub.style.opacity=1,4000);
 
-        section.classList.add("active");
+fadeIn(bass,4000,0.4);
+fadeIn(ambient,5000,0.3);
 
-        window.scrollTo({
-            top: section.offsetTop,
-            behavior: "smooth"
-        });
+setTimeout(()=>{
+  intro.style.opacity=0;
+  main.style.opacity=1;
+  startFlow();
+},9000);
 
-        // Scene-specific effects
-        handleSceneEffects(section);
+/* TIMINGS */
+const sceneTimings=[9000,11000,12000,10000,14000];
 
-        setTimeout(() => {
-            currentScene++;
-            playScene(currentScene);
-        }, sceneTimings[index]);
-    }
+function startFlow(){playScene(currentScene);}
 
+function playScene(index){
 
-    /* ---------------- SCENE EFFECTS ---------------- */
+  if(index>=sections.length){
+    document.body.style.overflowY="auto";
+    return;
+  }
 
-    function handleSceneEffects(section) {
+  sceneFade.style.opacity=1;
 
-        // Reset previous effects
-        stopSnow();
-        section.classList.remove("heartbeat");
+  setTimeout(()=>{
+    sceneFade.style.opacity=0;
 
-        // Sati Section (dark-red)
-        if (section.classList.contains("dark-red")) {
-            section.classList.add("heartbeat");
-        }
+    const section=sections[index];
+    section.classList.add("active");
 
-        // Parvati Section (snow)
-        if (section.classList.contains("snow")) {
-            startSnow();
-        }
-    }
+    window.scrollTo({top:section.offsetTop,behavior:"smooth"});
 
+    section.querySelectorAll("p").forEach(p=>{
+      revealText(p);
+    });
 
-    /* ---------------- SNOW EFFECT ---------------- */
+    handleScene(section);
 
-    function startSnow() {
+  },1500);
 
-        if (snowInterval) return;
+  setTimeout(()=>{
+    currentScene++;
+    playScene(currentScene);
+  },sceneTimings[index]);
+}
 
-        snowInterval = setInterval(() => {
+function handleScene(section){
 
-            const snow = document.createElement("div");
-            snow.classList.add("snowflake");
-            snow.innerText = "❄";
+  stopSnow();
+  fadeOut(heartbeat);
+  fadeOut(wind);
 
-            snow.style.left = Math.random() * window.innerWidth + "px";
-            snow.style.animationDuration = (Math.random() * 5 + 5) + "s";
+  if(section.classList.contains("dark-red")){
+    section.classList.add("heartbeat");
+    fadeIn(heartbeat,3000,0.6);
+  }
 
-            document.body.appendChild(snow);
+  if(section.classList.contains("snow")){
+    startSnow();
+    fadeIn(wind,4000,0.5);
+  }
 
-            setTimeout(() => {
-                snow.remove();
-            }, 10000);
+  if(section.querySelector("h2").innerText.includes("Mahashivaratri")){
+    bell.play();
+    fadeIn(mantra,5000,0.6);
+  }
+}
 
-        }, 300);
-    }
+function startSnow(){
+  if(snowInterval)return;
+  snowInterval=setInterval(()=>{
+    const snow=document.createElement("div");
+    snow.classList.add("snowflake");
+    snow.innerText="❄";
+    snow.style.left=Math.random()*window.innerWidth+"px";
+    snow.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(snow);
+    setTimeout(()=>snow.remove(),10000);
+  },400);
+}
 
-    function stopSnow() {
-        if (snowInterval) {
-            clearInterval(snowInterval);
-            snowInterval = null;
-        }
-    }
+function stopSnow(){
+  if(snowInterval){
+    clearInterval(snowInterval);
+    snowInterval=null;
+  }
+}
 
+window.saveMessage=function(){
+  const msg=document.getElementById("loveMessage").value;
+  if(!msg)return;
+  let messages=JSON.parse(localStorage.getItem("eternalLove"))||[];
+  messages.push(msg);
+  localStorage.setItem("eternalLove",JSON.stringify(messages));
+  document.getElementById("loveMessage").value="";
+  alert("Your message now lives in eternity.");
+}
 
-    /* ---------------- RESTART FUNCTION ---------------- */
-
-    window.restart = function () {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        setTimeout(() => location.reload(), 1500);
-    };
+window.restart=function(){
+  window.scrollTo({top:0,behavior:"smooth"});
+  setTimeout(()=>location.reload(),1500);
+}
 
 });
